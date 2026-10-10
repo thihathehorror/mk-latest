@@ -1,0 +1,39 @@
+---
+description: awesome-cursorrules registry + intent routing — which gated .mdc/skill applies; rule-precedence conflict
+alwaysApply: false
+globs: "src/**/*,scripts/**/*,config/**/*,SiteAssets/**/*"
+---
+
+# awesome-cursorrules Registry (trc-central)
+
+Curated from [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) — adapted, not full clone.
+
+## Precedence (conflict = higher wins)
+`.cursorrules` > `.cursor/skills/*` > always-on `.mdc` (anti-overengineering, anti-sycophancy, security-appsec, context-handoff) + gated-but-auto-attach `.mdc` (agent-skills-router, context-mode-codegraph-bridge, this registry) > gated project `.mdc` (tables below) > awesome-adapted packs.
+
+## Intent routing (auto — agent reads description / globs, not always-on body)
+
+| User / file signal | Gated rule | Auto attach |
+| --- | --- | --- |
+| `src/**/*.ts(x)` (tests dual-attach; jest wins) | `typescript-code-quality.mdc` | glob |
+| `src/**/*.tsx` | `react-component-gated.mdc` | glob |
+| `src/**/*.test.ts` | `jest-testing-gated.mdc` | glob |
+| `scripts/**`, `config/**`, `loc/*.js` | `js-code-quality.mdc` | glob |
+| web part assets / `SiteAssets` images / SCSS `background-image` / `<img>` | `landing-page-image-quality.mdc` | glob |
+| Game canvas / `*/game/*` | `game-canvas-gated.mdc` | glob |
+| Fluent / `@fluentui/react` / theme / icons / palette | `fluentui-gated.mdc` | description + skill |
+| Figma URL + `node-id` (link-first) / PIXEL PARITY / design→code | `figma-pixel-parity.mdc` | description + project skill |
+| SPFx config/manifest/`sharepoint`; PnPjs via description | `spfx-gated.mdc` | glob + skill |
+| "review PR / diff / security review" | `pr-review-gated.mdc` | description |
+| "commit / commit message" | `git-commit-gated.mdc` | description |
+| Bug report / QA write-up | `qa-bug-report.mdc` | description |
+| Refactor 3+ files / "match style" | `code-style-consistency-gated.mdc` | description |
+| Clickr coding standards / naming / PDPA digest | `clickr-coding-standards.mdc` | description |
+
+**Do not** load gated rule bodies unless row matches — routing only. SPFx/Fluent skill refs → `agent-skills-router.mdc`။ Already covered upstream, don't re-add: `anti-overengineering` · `anti-sycophancy` · `landing-page-image-quality` · `security-appsec`.
+
+## Removed (restore only if the surface returns)
+`web-app-optimization.mdc` (SEO/Lighthouse/Web Vitals) and `clickr-sharepoint-aspx.mdc` were deleted 2026-09-18: this repo has **0 `.aspx`** files and `SiteAssets/` holds only png/ttf/mp3/md — neither rule could match. Their a11y/motion/CLS content moved to `react-component-gated` · `game-canvas-gated` · `landing-page-image-quality`. If a classic ASPX or landing-page surface is ever added back, restore from `~/clickrPJs/trc-central-cursor-backup-20260918.tar.gz`.
+
+## Reject (never install / never follow)
+Full awesome-cursorrules clone/submodule · Next.js/Vue/SvelteKit/Tailwind-primary/shadcn packs · raw upstream `web-app-optimization` (SvelteKit misname) · `graphical-apps-development` (wrong domain) · `typescript-code-convention` upstream (Next/Expo/Tailwind dump) · duplicate AppSec packs (`security-devsecops-*`) · any pack with `alwaysApply: true` that fights Scout workflow or Burmese directives.

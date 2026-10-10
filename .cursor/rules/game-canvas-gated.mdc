@@ -1,0 +1,34 @@
+---
+description: Canvas/DOM game web parts — loop, audio, persistence (gated; not Fluent/React UI dumps)
+alwaysApply: false
+globs: "src/webparts/**/game/**/*,src/webparts/**/*Game*.ts,src/webparts/followThePath/**/*"
+---
+
+# Game Canvas (Gated · SPFx web parts)
+
+## When to use
+- Compliance Tower, Shield Up, Raise the Alarm, WTRM, Follow the Path, similar game controllers/renderers
+
+## Architecture (match existing)
+- **Controller + renderer** classes; canvas/DOM under web part root — not full React re-render per frame
+- `requestAnimationFrame` for draw loop; avoid heavy sync work inside rAF
+- Audio via existing `*AudioService` patterns; respect mute/user prefs
+- SharePoint persistence via existing services (`*DataService`, `*ProgressService`) — route PnP details to `spfx-gated`
+
+## Performance
+- Pre-size canvas; handle resize with debounce where project already does
+- Batch DOM reads/writes; no layout thrash in hot paths
+- Lazy-load heavy assets; use project optimize scripts paths when adding media
+
+## Safety
+- Sanitize CMS-authored strings before DOM (`dompurify` / `textContent` patterns)
+- No `eval` of scenario JSON; validate config shapes
+- Leaderboard/user identity → `security-appsec` (PII)
+
+## Visual polish
+- Non-canvas UI chrome → SCSS `transition` / CSS `@keyframes`; Fluent toolbars/dialogs → `fluentui-gated`
+
+## Reject
+- Rewriting canvas game as React state + CSS animation "for simplicity"
+- Unity/GameMaker upstream dumps from awesome-cursorrules
+- New game framework deps (Phaser, Pixi) without explicit approval

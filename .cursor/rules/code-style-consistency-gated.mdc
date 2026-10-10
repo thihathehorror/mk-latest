@@ -1,0 +1,29 @@
+---
+description: Match established PJ style before large edits (adapted from awesome code-style-consistency) — gated on multi-file/refactor tasks
+alwaysApply: false
+---
+
+# Code Style Consistency (Awesome-adapted · gated)
+
+Use when touching **3+ files** or doing refactor/rename — not for single-line fixes.
+
+## Quick profile (read before writing)
+1. Sample 2–3 neighbor files in the same web part folder
+2. Note: naming (`handle*`, `I*` interfaces, `*Service`, `*WebPart`)
+3. Note: import order (SPFx externals → shared → local)
+4. Note: error handling style (throw vs return undefined vs log+graceful degrade)
+5. Prefer **recent** files as style anchor
+
+## Apply
+- Match indentation, quote style, and brace layout of the folder
+- Match test style in adjacent `*.test.ts` when adding tests
+- Do not "normalize" unrelated legacy style in the same PR
+
+## Defer to higher rules
+- Security → `security-appsec`
+- Minimal scope → `anti-overengineering`
+- TS/React specifics → `typescript-code-quality` / `react-component-gated`
+
+## Reject
+- Mass reformat drives unrelated to user task
+- Introducing Prettier/ESLint config changes without ask

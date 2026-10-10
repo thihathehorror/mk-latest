@@ -1,0 +1,41 @@
+---
+description: Conventional commit messages (adapted from awesome git-conventional-commit-messages). Use when user asks to commit or draft commit message.
+alwaysApply: false
+---
+
+# Git Commit Messages (Awesome-adapted · gated)
+
+Use only when the user asks to commit, write a commit message, or prepare a PR title from changes.
+
+## Format
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+## Types (common)
+- `feat` — new feature / web part behavior
+- `fix` — bug fix
+- `refactor` — behavior-preserving restructure
+- `perf` — performance
+- `test` — tests only
+- `docs` — docs/comments for humans
+- `chore` — tooling, scripts, cursor rules (no user-facing change)
+- `build` — Heft/package-solution/manifest build pipeline
+
+## Scope examples
+`(trcHome)`, `(complianceTower)`, `(spfx)`, `(cms)` — optional, lowercase inside parens
+
+## Rules
+- Imperative, concise subject (~72 chars)
+- Body explains **why** when not obvious from diff
+- `BREAKING CHANGE:` footer or `type!:` when manifest/API breaks
+- Match recent repo commit tone (`git log -5` before drafting)
+- Never commit secrets, `.env`, or tenant credentials
+
+## Reject
+- Wall-of-text RFC paste in commit body
+- Commits without user explicit ask (see user git safety rules)

@@ -1,0 +1,32 @@
+---
+description: Core hard gates — 5-step workflow guard, မြန်မာ reply, codegraph-before-grep. Always on; full body = AGENTS.md
+alwaysApply: true
+---
+
+# Core Hard Gates (Always — trc-central)
+
+Full identity / anti-patterns / workflow detail = **`AGENTS.md`** (root).
+ဤဖိုင်တွင် ပြုတ်လို့မရသော gate ၃ ခုသာ — body ထပ်မရေးရ (drift)။
+
+## 1. Workflow gate — one `y` = exactly ONE step
+`1 Scout → 2 Architect → 3 Builder → 4 QA → 5 DevOps`。
+Step 3/4 ကို Step 1/2 နဲ့ **turn တစ်ခုတည်းမှာ မလုပ်ရ**。Continuous `y` ဖြစ်နေလည်း step မကျော်ရ。
+Figma port အပါအဝင် Architect **မကျော်ရ**。Reply #1 မှာ full code **မထုတ်ရ** — target file list + "(y?)" သာ。
+Step ending: `Scout ပြီးပါပြီ။ (y?)` · `Plan ဆွဲပြီးပါပြီ။ (y?)` · `Code ရေးပြီးပါပြီ။ (y?)` ·
+`QA ပြီးပါပြီ။ (y?)` · `လုပ်ငန်းစဉ် ပြီးဆုံးပါပြီ။`
+
+## 2. Language gate
+User↔Agent reply **မြန်မာ ONLY**; internal reasoning / plan English。
+Code identifier + API English; inline comment + user-facing copy မြန်မာ。
+Token-halting — step ရဲ့ output format ပြည့်တာနဲ့ ရပ်; general advice မဖြည့်ရ。
+
+## 3. RAG routing gate
+`.ts`/`.tsx`/`.js` symbol · flow · blast radius → `codegraph_explore` **အရင်**; grep+Read loop မလုပ်ရ。
+`.scss`/`.svg`/`.json`/`.md`/assets → `rg`/Grep (codegraph index မဖမ်း)。
+build · test · lint · output > ~20 lines → `ctx_*` (context-mode)。
+MCP/index မရှိ → Grep/Read fallback; logic **ဘယ်တော့မှ မခန့်မှန်းရ**。
+Detail: `context-mode-codegraph-bridge.mdc`。
+
+## Memory
+Window thin / step break / new chat → `active_context.md` + `progress.md` ကို SoT အဖြစ် ဖတ်/ရေး;
+out of sync ဖြစ်နေရင် **မဆက်ရ**。Detail: `context-handoff.mdc`。

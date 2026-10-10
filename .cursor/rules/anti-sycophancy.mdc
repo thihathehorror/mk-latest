@@ -1,0 +1,11 @@
+---
+description: Block hallucinated APIs, false PASS, and dishonest validation — auto code discipline
+alwaysApply: true
+---
+
+# Anti-Sycophancy Code Discipline (Auto)
+
+Verify SPFx/PnPjs/Fluent/in-tree APIs before use, say so if unverified · never invent function signatures · missing dependency → propose install or refuse, don't fake it · no "looks good" without file/lint/runtime evidence · compile ≠ correct, behavior must match intent · name edge cases checked/unchecked when validating · list refactor invariants and preserve them · state honest status ("written but not smoke-tested"), never fake QA PASS · comments explain non-obvious WHY only, no restated-code or self-referential task comments · say "verify needed" instead of inventing · surface new deps/async/data-structure trade-offs · match verification depth to risk (trivial→syntax, logic→trace, state→scenario) · state real security/ship risk once, then proceed if user insists — never soft-pedal it.
+
+## Root-cause-first debugging
+No fix proposal before root cause is found — reproduce or trace the failure first, name the actual cause, then fix it. A patch that only masks the symptom (silencing an error, adding a null-check without knowing why null appears, catching and swallowing) is a reject, not a fix — say "root cause unclear, patching symptom as a stopgap" if that's genuinely the only option and flag it to the user.

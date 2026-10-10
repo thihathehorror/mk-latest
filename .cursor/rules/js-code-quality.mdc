@@ -1,0 +1,34 @@
+---
+description: Vanilla JS code quality (adapted from awesome javascript-typescript-code-quality) — scripts/config/loc
+alwaysApply: false
+globs: "scripts/**/*.{js,mjs},config/**/*.js,src/**/loc/*.js,eslint.config.js"
+---
+
+# JS Code Quality (Awesome-adapted · SPFx scripts)
+
+Defers to `.cursorrules`, `anti-overengineering`, `anti-sycophancy`, `security-appsec`. No React/TS framework scaffolding.
+
+## Mindsets
+- Simplicity · readability · maintainability over premature micro-opts
+- Testability when logic is non-trivial
+- Less code = less debt
+
+## Guidelines
+- Early returns over deep nesting
+- Descriptive names; event handlers `handle*` (e.g. `handleClick`)
+- Prefer clear constants / small pure helpers over sprawling functions
+- Prefer immutable/functional style when it stays readable
+- DRY only when duplication is real and stable — do not invent shared layers early
+- **Minimal diffs** — touch only task-related sections; do not clean unrelated code or rewrite comments
+
+## Comments
+- WHY only (non-obvious intent) — no “comment every function”, no restated-code comments
+- Prefer JSDoc only for non-obvious public helpers in shared JS
+
+## Bugs found while editing
+- If out-of-scope bug: short `TODO:` note OR report in reply — do not drive-by fix unless asked
+
+## Reject
+- Importing new libraries without need/approval
+- Converting vanilla game/page JS into React/Next/Svelte
+- `eval` / unsafe `innerHTML` with user data (see `security-appsec`)

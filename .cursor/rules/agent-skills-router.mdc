@@ -1,0 +1,24 @@
+---
+description: Auto-route SPFx + Fluent UI + Figma skills — router for SPFx scaffold/PnPjs/Heft, @fluentui/react, figma.com node-id links
+alwaysApply: false
+globs: "src/webparts/**/*.{ts,tsx},src/extensions/**/*.{ts,tsx}"
+---
+
+# Agent Skills Router (SPFx + Fluent)
+
+## SPFx / PnPjs / Heft-gulp
+SPFx scaffold/upgrade/PnPjs/Heft-gulp/manifest-config → `spfx-gated.mdc` + `.cursor/skills/spfx/SKILL.md` (one intent ref only: `create`|`upgrade`|`pnpjs`|`toolchain`|`react-design`). Yeoman create/upgrade refs only on explicit ask — never for game canvas/vanilla markup. Toolchain: Heft ≥1.22 vs gulp ≤1.21.1, don't cross `references/toolchain.md`. Split: Fluent components/theme → `fluentui-gated` only; SPFx data/scaffold/toolchain → `spfx-gated` only.
+
+## Fluent UI (this PJ = v8)
+Fluent/`@fluentui/react`/theme/icons/palette → `fluentui-gated.mdc` + `.cursor/skills/fluentui/SKILL.md`. This repo uses **v8** (SPFx 1.23) — verify against `package.json`; v9 refs are migration-guide only. Intent ref: `fluentui/references/v8-*.md`, hex lookup via `token-lookup-v8.md`/`scripts/token-lookup.py`. SPFx host theme/layout → `fluentui` then `spfx/references/react-design.md`.
+
+## Figma → code (link-first EXACT)
+Trigger: `figma.com` + `node-id` alone (magic words optional) → `figma-pixel-parity.mdc` + `.cursor/skills/figma-pixel-parity/SKILL.md` + plugin `/figma-design-to-code`. Scout may `get_design_context` gather only; **Architect required** (Scout `y` → Plan → `y` → Builder). MCP measurement = SoT → `*.module.scss` 1:1, no new package, taste OFF, no PASS without Figma↔UI evidence. Skip: classic SiteAssets PARITY, doc-only cite, no-Figma Fluent token work. Reject: screenshot-only freestyle, layout reinterpret, hand-drawn SVG.
+
+## Other gated packs
+JS/TS/tests/games/ASPX/PR/commit/QA/style/Clickr digest → `awesome-registry.mdc` intent table (routing only, no deep load).
+
+## Guards
+- Project `.cursor/skills/*` ကို global copies ထက် ဦးစားပေး။
+- Upstream Fluent monorepo contributor skills (Nx, triage, beachball) **မခေါ်**။
+- Reject: second Yeoman/Heft solution root in this repo (direct SPFx dev only — no classic migration surface)။

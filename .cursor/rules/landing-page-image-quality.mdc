@@ -1,0 +1,31 @@
+---
+description: SPFx media quality — web part assets, SCSS background-image, TSX/game-markup img; no placeholders, alt, CLS, WebP, lazy-load
+alwaysApply: false
+globs: "src/webparts/**/assets/**/*.{png,jpg,jpeg,webp,avif,gif,svg},SiteAssets/**/*.{png,jpg,jpeg,webp,avif,gif,svg},src/webparts/**/templates/**/*.html"
+---
+
+# SPFx Media Quality (Auto-attach)
+
+Surface: `src/webparts/**/assets/**` (~451 files) · `SiteAssets/**` images · referenced from `*.module.scss` `background-image` / `background`, TSX `<img>`, and game markup templates.
+
+## Sources
+- No `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, or broken hotlinks
+- Prefer committed assets under `src/webparts/**/assets/` / `SiteAssets/` / user-approved URLs
+- Confirm license before third-party images
+
+## Quality & CLS
+- Real, on-brand imagery — not vague stock filler when product/place matters
+- `<img>`: explicit `width`/`height` or CSS `aspect-ratio` to prevent layout shift
+- SCSS `background-image`: pair with explicit box size (`width`/`height` or `aspect-ratio`) + `background-size`/`object-fit` — never rely on intrinsic size
+- Prefer WebP/optimized sizes; lazy-load below-fold (`loading="lazy"`)
+
+## Accessibility
+- Informative images: specific `alt`
+- Decorative / SCSS background: empty `alt` or no `<img>` at all
+- Do not put essential copy only inside an image
+
+## Checks
+- Paths resolve under this repo (`src/webparts/**/assets/`, `SiteAssets/`, relative template paths)
+- Bundled asset requires wired (SPFx `require()` / `loadJson`) — not a raw site-relative path that breaks on deploy
+- Mobile + desktop crop still readable
+- Error/empty states must not show broken-image icons

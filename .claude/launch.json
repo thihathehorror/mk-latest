@@ -1,0 +1,59 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "start",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "goodCatch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start:goodCatch"
+      ],
+      "port": 4321,
+      "url": "https://localhost:4321"
+    },
+    {
+      "name": "resource-hub",
+      "runtimeExecutable": "node_modules/.bin/heft",
+      "runtimeArgs": [
+        "start",
+        "--serve-config",
+        "resourceHub",
+        "--nobrowser"
+      ],
+      "port": 4321,
+      "url": "https://localhost:4321"
+    },
+    {
+      "name": "game2",
+      "runtimeExecutable": "node_modules/.bin/heft",
+      "runtimeArgs": [
+        "start",
+        "--serve-config",
+        "complianceTower",
+        "--nobrowser"
+      ],
+      "port": 4321,
+      "url": "https://localhost:4321"
+    },
+    {
+      "name": "sherlockArticlePage",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/start-webpart.js",
+        "sherlockArticlePage",
+        "--nobrowser"
+      ],
+      "port": 4321,
+      "url": "https://localhost:4321"
+    }
+  ]
+}

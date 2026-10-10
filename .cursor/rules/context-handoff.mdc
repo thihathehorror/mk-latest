@@ -1,0 +1,62 @@
+---
+description: Context-window handoff — stop guessing when thin; persist DONE/NEXT to active_context + progress
+alwaysApply: true
+---
+
+# Context handoff (Auto)
+
+Chat memory ≠ SoT. Thin window / mid-step / new chat → **files win**, never invent NEXT from residual chat.
+
+## SoT (read first every continue / Scout)
+
+1. `active_context.md` — Goal · Core logic · Edge/Fail · Status · paste block
+2. `progress.md` — last QA JSON · Next line
+3. User's latest message (overrides stale file Status only when explicit)
+
+context-mode `ctx_*`/SQLite ≠ SoT (dump-index only) — on conflict, files win (`context-mode.mdc`).
+(1)+(2) contradict latest ask → **stop**, report drift, ask which wins. Do not Builder.
+
+## Hard-stop triggers (no Builder / no "finish the wave")
+
+- User: `context thin` · `handoff only` · `no code` · new chat / continue-from-files
+- Long thread + large tool dumps + can't restate DONE/NEXT from files without guessing
+- Mid-step and next action needs facts not in files or this turn's results
+- `preCompact` hook warn (`.cursor/hooks/precompact-handoff-warn.py`) → treat as thin
+
+On hard-stop: update `active_context.md` (DONE/PARTIAL/NEXT/Out-of-scope + paste block) and `progress.md` Next line → reply with status + paste block only, no new code, no step jump.
+
+## Mid-step partial
+
+| State | Write to `active_context` |
+|-------|---------------------------|
+| Scout/Architect done | Status = plan ready · NEXT = Builder |
+| Builder half-done | PARTIAL = files touched + what's left · NEXT = finish Builder then QA |
+| QA incomplete | PARTIAL = checks run/not run · NEXT = QA |
+| DevOps notes only | NEXT = user upload/smoke · no fake PASS |
+
+Never mark QA **PASS** without evidence in this turn or `progress.md`.
+
+## New chat / continue paste
+
+Keep a fenced paste under `active_context.md`:
+```
+Continue <pj> from active_context.md + progress.md.
+DONE: … / NEXT: … / SoT + rejects
+If context thin: handoff only — no code.
+Workflow Scout→… one step per y.
+```
+New chat turn 1 = Scout from files (or handoff-only). Never skip to Builder.
+
+## Workflow lock
+
+One numerical step per `y` · never Builder+QA same turn as Scout/Architect · `y` after handoff ≠ license to guess NEXT.
+
+## Housekeeping (progress.md self-prune — do at QA/DevOps step AND every Scout, no need to be asked)
+
+`progress.md` holds **pending work only**, not a permanent log: the active task's entry + any earlier entry whose DevOps is still genuinely deferred (not "done and shipped"). When an entry's DevOps completes, or the user explicitly drops/supersedes it, **delete that entry** from `progress.md` in the same turn — don't let finished entries pile up. `active_context.md` always reflects the single current task; overwrite it on a new task, never append.
+
+**Shipped-detection (don't rely on the DevOps line alone):** at every Scout step, before reporting "Scout ပြီးပါပြီ", run `git log --oneline -10` and check each non-active `progress.md` entry's target files/keywords against it. A matching commit = shipped, even if that entry's own DevOps line still says NOT STARTED (formal DevOps notes and an actual commit are different signals — a commit wins). Prune shipped entries silently in the same turn, then report Scout as usual. This check is unconditional — run it whether or not `progress.md` looks stale.
+
+## Reject
+
+Chat-recall implementation when Status/NEXT stale · invented pageKeys/URLs/PASS · scope creep under thin context · `ctx_search` as SoT · replacing this with a Skill · letting `progress.md` accumulate finished-and-shipped entries instead of pruning them.

@@ -1,0 +1,43 @@
+---
+description: Figma link-first EXACT parity — figma.com + node-id, PIXEL PARITY, Figma အတိုင်း, design-to-code; get_design_context + px-count gate; numbers 1:1 into module.scss; screenshot verifies only; no Tailwind; taste OFF
+alwaysApply: false
+---
+
+# Figma Link-First EXACT Parity (Gated · trc-central)
+
+Description-only. **URL alone is enough** — no magic words when `figma.com` + `node-id` + UI implement intent.
+
+**Full procedure: `.cursor/skills/figma-pixel-parity/SKILL.md`** — load it first. This file is the trigger + gate summary only.
+
+## When
+- User pastes `figma.com/design/...` or `/make/` with `node-id`
+- Or names PIXEL PARITY / Figma အတိုင်း / design→code
+
+**Off:** Figma link cited as docs only (no implement). PnPjs/data-only.
+
+## Gate summary (SKILL.md Step 2–3a က အသေးစိတ်)
+
+1. `node-id` မပါ → ask once, stop. Never guess `nodeId`.
+2. `get_design_context` **immediately** (Scout gather မှာ ခွင့်ပြု — `.cursorrules` `<figma_link_fast_path>`). `excludeScreenshot` **မပါစေရ**။
+3. `content` ထဲ `"error"` (`Not connected`, `fetch failed`) ပါရင် `isError:false` ဖြစ်လည်း **failure** → reconnect, retry. အလွတ် payload အပေါ် code မရေးရ။
+4. **px-count gate** — returned code ထဲ `[Npx]` တွက်:
+
+| လက္ခဏာ | Node type | လုပ်ရမည် |
+|---|---|---|
+| `[Npx]` · `gap-[…]` · `text-[…px]` + `<p>` text | live auto-layout frame | numbers → `*.module.scss` ၁:၁ |
+| px ၀ · `inset-[…%]` သာ · `<img>` များ · text ၀ · `Layer_1`/`Vector`/`Group`/`Clip path group`/`clippath`/`BG_*`/`data-BG *` | flattened vector artwork | **STOP — SCSS မရေးရ**။ `get_metadata` `x/y/width/height` = numeric SoT + `download_assets` → `<img>`/`background-image` |
+| code ~0 KB, ပုံသာ | image-only frame | asset export သာ |
+
+5. Scout `y` → **Architect** (never skip on Figma ports) → `y` → Builder (web part surface only) → Figma↔UI screenshot evidence.
+
+## SoT
+1. Linked node/frame
+2. **Numbers only** — live node → `get_design_context`; flattened → `get_metadata` box + exported asset
+3. **Screenshot = verify သာ, measure မဟုတ်**
+4. Web part root only (host chrome out of scope unless asked)
+
+Taste / hero-budget / "make it nicer" = **OFF**. Tailwind/shadcn package မထည့်ရ; "adapt to project" ≠ layout ပြောင်း။
+
+## Docs
+- Skill (procedure + full reject list): `.cursor/skills/figma-pixel-parity/SKILL.md`
+- `.cursorrules` `<figma_link_fast_path>` · Router: `agent-skills-router.mdc`

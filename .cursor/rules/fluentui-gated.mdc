@@ -1,0 +1,28 @@
+---
+description: Gated Fluent UI v8 SPFx — @fluentui/react, ThemeProvider, theme, icons, palette, hex→palette, property-pane React UI
+alwaysApply: false
+---
+
+# Fluent UI v8 (Gated · SPFx)
+
+Description-only (no `src/**/*.tsx` glob). `agent-skills-router` routes here when Fluent intent or `@fluentui/react` import is in the task.
+
+## When to use
+- `@fluentui/react` component, theme, icons, palette, CMS toolbar, property-pane React UI
+- Hardcoded hex → `ITheme.palette` replacement in TSX
+- `.cursor/skills/fluentui/SKILL.md` ဖတ်ပြီး intent အလိုက် **တစ်ခု** reference သာ load
+
+## Hard gates (မချိုးရ)
+1. **v8 only** — `@fluentui/react` per `package.json`; v9 import မထည့်ရ (migration task မဟုတ်ရင်)
+2. **No monorepo skills** — upstream Nx/beachball/v9-component scaffold မခေါ်
+3. **Reject surfaces** — game canvas TS, vanilla JS controllers, ASPX-only CSS, PnPjs-only data work
+4. **SPFx layout** — host/theme contract → `fluentui` ပြီးနောက် `spfx/references/react-design.md`
+5. **Token lookup** — `references/token-lookup-v8.md` or `scripts/token-lookup.py` (optional)
+
+## Load order
+1. `fluentui/SKILL.md` (route table)
+2. One of: `v8-rules` | `v8-theme` | `v8-components` | `v8-icons` | `token-lookup-v8`
+3. `react-design.md` when building/editing web part UI shells
+
+## Reject & rewrite
+- Output က v9 `FluentProvider` / `@fluentui/react-components` ဖြစ်နေရင် **reject** → v8 `ThemeProvider` + `@fluentui/react` နဲ့ ပြန်ရေး

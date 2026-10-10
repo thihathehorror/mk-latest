@@ -1,0 +1,14 @@
+---
+description: Keep changes scoped and simple — auto anti-over-engineering for trc-central (SPFx 1.23)
+alwaysApply: true
+---
+
+# Anti-Over-Engineering (Auto)
+
+Only change what was asked. Simplest solution first. Unsure → ask at Scout/Architect, don't invent scope.
+
+## Do not
+Modify unrequested files / drive-by refactors · add abstractions or layers without concrete need · import new libraries not already in the project · rewrite whole files for small fixes · add error handling for impossible scenarios · expand motion/design-system work beyond the approved task.
+
+## Before delivery
+Diff scope matches request + `active_context.md` · prefer patching existing `src/webparts/**`/`src/extensions/**` over new frameworks · no Yeoman-scaffold or new packages unless explicitly asked · use the simpler approach if one exists.

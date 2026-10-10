@@ -45,26 +45,7 @@ obj
 
 docs/
 
-# CodeGraph local knowledge-graph index (never commit)
-.codegraph/
-.codegraph
-codegraph.json
-
-# Cursor local config: rules, skills, hooks, and session SoT files
-AGENTS.md
-.cursor/
-.cursor/rules/
-.cursor/skills/
-.cursorrules
-.cursorrules.bak
-.cursorignore
-.cursorindexingignore
-active_context.md
-progress.md
-
-# Claude Code local config: harness, MCP servers, hooks
-CLAUDE.md
-.claude/
+# MCP config may hold tokens (do not commit)
 .mcp.json
 
 # Local PnP Entra ClientId cache (do not commit)

@@ -1,0 +1,43 @@
+---
+description: Clickr Coding Standards (master digest) — naming, secrets, XSS/SQLi, privacy, commits; request when standards apply
+alwaysApply: false
+---
+
+# Clickr Coding Standards (trc-central digest)
+
+Self-contained digest (no `docs/standards/` zip in this PJ).
+**Defers to** `.cursorrules` → skills → always-on `.mdc` (`security-appsec`, `anti-overengineering`, `anti-sycophancy`). Conflicts lose upward.
+
+Tags: **NEVER** = hard stop · **MUST** = required · **SHOULD** = default with reason if skipped.
+
+## Naming / variables
+- **MUST** readable full words; one casing style per language; booleans as questions (`isActive`, `hasPaid`).
+- **MUST** include units (`timeoutMs`, `priceCents`); collections plural; money as integer cents.
+- **NEVER** lying names, client/personal names in identifiers, or leftover `data`/`temp`/`obj`/`foo` in merged code.
+
+## Comments
+- **MUST** explain **why** (workaround / vendor bug / surprising choice) with reason + date when non-obvious.
+- **NEVER** commented-out code in merges; **NEVER** restated-code filler comments.
+
+## Secrets / security (aligns with `security-appsec`)
+- **NEVER** commit real secrets; **NEVER** log tokens/passwords/session IDs/NRIC; **NEVER** secrets in query strings.
+- **MUST** validate hostile input (forms, query, headers, third-party responses); allow-list; escape output by context.
+- **NEVER** string-built SQL, `eval`/`exec` on user data, or unsafe `innerHTML` with user data.
+- **MUST** fail closed on authZ; deny by default.
+
+## Privacy (regulated / PDPA-aware)
+- **MUST** minimal PII; HTTPS; client annex before new third-party / logging destination.
+- **NEVER** paste client personal data into unapproved tools; **NEVER** unmasked prod data in staging/local.
+
+## Dependencies
+- **MUST** pin / lockfile; confirm package exists before install; licence check on client work.
+- **NEVER** add deps an agent invented from memory; **NEVER** new libs without need (see `anti-overengineering`).
+
+## Version control / commits
+- **MUST** branch `type/short-description`; commit `type(scope): what changed`.
+- **NEVER** `wip`/`fix`/`update` as whole message; **NEVER** commit dumps, certs, list exports.
+
+## This repo overrides
+- Agent SoT remains `.cursorrules` (Burmese workflow, **SPFx-native** anchor) — not `CLAUDE.md`.
+- PHP / Python / React-Next Clickr stack files = **other repos** — do not auto-apply here.
+- SPFx / Fluent / PnPjs details → `agent-skills-router.mdc` + project skills.

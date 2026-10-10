@@ -1,0 +1,30 @@
+---
+description: SPFx React component patterns (adapted from awesome react-components-creation) — TSX web parts, not v0/Tailwind
+alwaysApply: false
+globs: "src/**/*.tsx"
+---
+
+# React Components (Awesome-adapted · SPFx)
+
+## Before creating
+1. Search `src/webparts/**` and `src/shared/**` for existing component/pattern
+2. Match neighbor web part: `*WebPart.ts` + `components/*.tsx` + `*.module.scss`
+3. Prefer extending shared `src/shared/` primitives over duplicate markup
+
+## New component checklist
+- TypeScript props interface; default export only if file convention requires
+- Styles: `*.module.scss` — no Tailwind/shadcn/v0 scaffold
+- Fluent controls → `fluentui-gated` (v8 `@fluentui/react`)
+- CMS copy: follow `techRiskCulture` / web part CMS patterns when applicable
+- A11y: semantic elements, keyboard, focus — see `spfx/references/react-design.md`
+- A11y (cont.): visible focus ring; sufficient contrast; semantic controls over div-click; ARIA only when native semantics are insufficient
+
+## State & data
+- Web part properties vs React state — don't duplicate source of truth
+- List/Graph reads → `spfx-gated` + PnPjs patterns
+- Side effects in `useEffect` with cleanup (timers, listeners, rAF)
+
+## Reject
+- v0.dev / shadcn / Tailwind generation links from upstream awesome rule
+- v9 Fluent imports
+- Porting game canvas into TSX render loop

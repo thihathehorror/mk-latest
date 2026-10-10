@@ -1,0 +1,49 @@
+---
+description: PR/code review angles — security, performance, tests, architecture (adapted from awesome pr-review). Use when user asks review PR/diff/changes.
+alwaysApply: false
+---
+
+# PR Review (Awesome-adapted · gated)
+
+Use only when the user asks to review a PR, diff, branch changes, or "review this".
+
+Pick angle from user emphasis; if unspecified, ask or default **security**.
+
+## Output discipline (all angles)
+- Cite **file path + line** for each finding
+- Severity: **blocker** | **important** | **nit**
+- Specific findings only — no vague "looks risky"
+- If diff lacks context, say so and name what file chunk is needed
+- End with verdict line: `Safe to merge | needs changes | reject`
+
+## Angle: SECURITY
+1. Auth/authz — missing checks, IDOR, role assumptions
+2. Input validation — untrusted data → queries, shell, paths, `eval`, deserialization
+3. Injection — SQL/NoSQL/XSS/template/prompt
+4. Secrets — keys in code, logs, client bundles, committed env
+5. Output encoding — unescaped HTML in SharePoint/DOMPurify bypass
+6. PII — overshared responses, leaderboard identity leaks
+
+## Angle: PERFORMANCE
+1. N+1 list/Graph calls in loops
+2. Hot-path allocations inside `requestAnimationFrame` / scroll handlers
+3. Unbounded arrays / missing pagination
+4. Sequential `await` where batching is correct
+5. Hidden O(n²) in nested `.map` / `.filter`
+
+## Angle: TESTS
+1. New branches without tests (see `jest-testing-gated`)
+2. Weak assertions / snapshot-only / happy-path only
+3. Flaky time/random/network without stubs
+4. Mocks that hide interface drift
+
+## Angle: ARCHITECTURE
+1. Scope creep vs request
+2. Duplicated domain logic across web parts
+3. Wrong layer (UI doing list persistence, game loop in React render)
+4. Conflicts with SPFx Heft / manifest / Fluent v8 conventions
+
+## PJ guards
+- Defer AppSec detail to `security-appsec.mdc`
+- SPFx scaffold/toolchain findings → cite `spfx-gated` expectations
+- Do not recommend Next/Tailwind migration as "fix"

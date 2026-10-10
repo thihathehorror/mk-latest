@@ -1,0 +1,7 @@
+{
+  "enabledMcpjsonServers": [
+    "codegraph",
+    "context-mode",
+    "figma"
+  ]
+}

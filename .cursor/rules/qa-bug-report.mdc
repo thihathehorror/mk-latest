@@ -1,0 +1,57 @@
+---
+description: QA bug report template (adapted from awesome qa-bug-report) — only when user asks for bug report / QA write-up
+alwaysApply: false
+---
+
+# QA Bug Report (Awesome-adapted)
+
+Use only when the user asks for a bug report, QA write-up, or reproduction doc. Does not replace Scout/Architect/Builder/QA workflow steps.
+
+## Severity
+1. **Critical** — crash, data loss, security, blocks all users
+2. **High** — major feature broken / blocks many users
+3. **Medium** — non-critical break / usability impact for some
+4. **Low** — minor UI / typos / non-core
+5. **Trivial** — cosmetic, minimal impact
+
+## Structure
+```
+# Bug Report: [concise title]
+
+## Description
+[impact]
+
+## Environment
+- Device / OS / Browser
+- Screen (if relevant)
+- User role (if relevant) — no secrets/PII dumps
+
+## Severity
+[level] — [why]
+
+## Steps to Reproduce
+1. …
+2. …
+
+## Expected Behavior
+…
+
+## Actual Behavior
+…
+
+## Visual Evidence
+[paths / descriptions — no credential screenshots]
+
+## Console/Error Logs
+[sanitize tokens/PII]
+
+## Additional Notes
+…
+
+## Possible Fix
+[optional, evidence-based]
+```
+
+## Practices
+- One issue per report; factual; numbered steps; exact errors
+- No blame language; no production secrets in reports (see `security-appsec`)

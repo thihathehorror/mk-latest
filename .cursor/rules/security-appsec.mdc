@@ -1,0 +1,15 @@
+---
+description: Auto AppSec for SharePoint ASPX/JS — secrets, XSS, least privilege
+alwaysApply: true
+---
+
+# Security AppSec (Auto — SharePoint ASPX/JS)
+
+Defers to `.cursorrules` Safety; SPFx skill refs win on SPFx/PnPjs details.
+
+- **Secrets**: never hardcode credentials/keys/tokens/connection strings, never commit `.env`/tenant secrets, never log passwords/tokens/session ids
+- **Input/Output**: sanitize input, escape output (HTML attr/text/URL contexts) · no `eval`/unchecked `innerHTML` with user data/shell `exec` on user data · prefer textContent/safe DOM APIs
+- **AuthZ**: least privilege for admin/script surfaces · prefer host SharePoint auth over invented custom auth
+- **Dependencies**: no new packages without need + approval · prefer in-tree JS/host APIs, skill-guided PnPjs defaults
+- **PII**: treat names/emails/scores/leaderboard identity as sensitive, never expose in front-end globals or HTML comments
+- **Never**: weaken security "to sound less serious" · touch production secrets or expose Local/tenant credentials in replies

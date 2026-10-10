@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/ensure-codegraph.sh"
+      },
+      {
+        "type": "command",
+        "command": "context-mode hook cursor sessionstart",
+        "loop_limit": null,
+        "failClosed": false
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "command": "context-mode hook cursor pretooluse",
+        "matcher": "Shell|Read|Grep|WebFetch|mcp_web_fetch|mcp_fetch_tool|Task|MCP:ctx_execute|MCP:ctx_execute_file|MCP:ctx_batch_execute|MCP:(?!ctx_)",
+        "loop_limit": null,
+        "failClosed": false
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "command": "context-mode hook cursor posttooluse",
+        "loop_limit": null,
+        "failClosed": false
+      }
+    ],
+    "preCompact": [
+      {
+        "command": ".cursor/hooks/precompact-handoff-warn.py"
+      }
+    ],
+    "stop": [
+      {
+        "type": "command",
+        "command": "context-mode hook cursor stop",
+        "loop_limit": null,
+        "failClosed": false
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "type": "command",
+        "command": "context-mode hook cursor afteragentresponse",
+        "loop_limit": null,
+        "failClosed": false
+      }
+    ]
+  }
+}

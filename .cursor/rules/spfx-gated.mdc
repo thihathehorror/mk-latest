@@ -1,0 +1,39 @@
+---
+description: Gated SPFx dev skills — scaffold/upgrade/PnPjs/Heft/toolchain; glob = config/manifest/sharepoint only (not src/webparts TS/game)
+alwaysApply: false
+globs: ".yo-rc.json,config/**/*,src/webparts/**/*.manifest.json,src/extensions/**/*.manifest.json,sharepoint/**/*"
+---
+
+# SPFx Dev Skills (Gated · SharePoint/spfx-dev-skills)
+
+## When to use
+- SPFx scaffold (Yeoman), version upgrade, gulp→Heft migration
+- PnPjs / SharePoint list / Microsoft Graph data in web parts
+- Heft/gulp build, serve, package-solution, manifest/config
+- `.cursor/skills/spfx/SKILL.md` ဖတ်ပြီး intent အလိုက် **တစ်ခု** reference သာ load
+
+## Hard gates (မချိုးရ)
+1. **PJ toolchain** — SPFx **1.23** · **Heft** per `.yo-rc.json` / `package.json`; legacy gulp သာ ≤1.21.1
+1a. **Invocation** — `heft` က PATH မှာ **မရှိ** (`node_modules/.bin/heft` သာ)။ npm scripts သာ ခေါ်: `npm run build:fast` · `npm run build` · `npm run test` · `npm run start:<wp>` · `npm run build:package`။ raw heft လိုရင် `npx heft <cmd>`။ `command not found: heft` = invocation မှား၊ **build failure မဟုတ်** — script name ပြန်စစ်ပြီး retry။
+2. **Fluent UI split** — component/theme/icons/palette → `fluentui-gated.mdc` (ဒီ rule မခေါ်)
+3. **Reject surfaces** — game canvas markup, legacy ASPX-only CSS; visual palette/typography → `fluentui-gated` + `react-design.md`
+4. **No scaffold in wrong surface** — Yeoman create/upgrade refs ကို game/vanilla/ASPX ထဲ မခေါ်
+5. **Upstream attribution** — adapted from [SharePoint/spfx-dev-skills](https://github.com/SharePoint/spfx-dev-skills) (MIT)
+
+## Load order
+1. `spfx/SKILL.md` (route table + PJ banner)
+2. One of: `create` | `upgrade` | `pnpjs` | `toolchain` | `react-design`
+3. `react-design.md` for UI shell → then `fluentui-gated` if Fluent components needed
+
+## Intent routing
+| User intent | Reference |
+| --- | --- |
+| New web part / extension | `references/create.md` |
+| Upgrade SPFx version | `references/upgrade.md` |
+| List/Graph/data access | `references/pnpjs.md` |
+| build / serve / package / Heft | `references/toolchain.md` |
+| Web part layout / a11y shell | `references/react-design.md` |
+
+## Reject & rewrite
+- Output က upstream v9 `FluentProvider` / `@fluentui/react-components` ဖြစ်နေရင် **reject** → `fluentui-gated` + v8 `ThemeProvider`
+- `m365`/`yo` မရှိရင် **stop** — doctor output + install commands ပြပြီး ဆက်မလုပ်

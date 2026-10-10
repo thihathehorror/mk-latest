@@ -1,0 +1,37 @@
+---
+description: SPFx TypeScript/React quality — src TS/TSX; on *.test.ts jest-testing-gated wins
+alwaysApply: false
+globs: "src/**/*.{ts,tsx}"
+---
+
+# TypeScript Code Quality (Awesome-adapted · SPFx)
+
+Defers to `.cursorrules`, `anti-overengineering`, `anti-sycophancy`, `security-appsec`, `js-code-quality` (vanilla JS surfaces). Cursor has no glob negation — `*.test.ts` may dual-attach; **jest-testing-gated wins** for test APIs/patterns. Do not apply this rule's React/TS product guidance to tests.
+
+## Mindsets
+- Simplicity · readability · maintainability over premature micro-opts
+- SPFx host constraints (React 17, bundle size, no arbitrary Node APIs in web parts)
+- Minimal diffs — touch only task-related sections
+
+## TypeScript
+- Prefer explicit types on public/service boundaries; avoid `any` unless bridged with comment WHY
+- Narrow unions over loose strings when domain is known
+- `readonly` / `Readonly` for config objects passed across layers
+- Async: prefer `async/await`; batch parallel work with `Promise.all` when safe
+
+## React (SPFx web parts)
+- Functional components; hooks for state/effects — match existing web part patterns
+- Colocate `*.module.scss`; no Tailwind/shadcn scaffold
+- Fluent UI → `fluentui-gated` + v8 only
+- Data/Graph → `spfx-gated` + `pnpjs.md`
+
+## Naming & structure
+- `handle*` for event handlers; descriptive service/module names
+- Early returns over deep nesting
+- DRY only when duplication is real — no premature shared layers
+
+## Reject
+- Next.js App Router / SSR / Server Actions patterns
+- `@fluentui/react-components` (v9) unless explicit migration task
+- New npm deps without need/approval
+- Converting game canvas logic into React state trees when vanilla/controller pattern exists

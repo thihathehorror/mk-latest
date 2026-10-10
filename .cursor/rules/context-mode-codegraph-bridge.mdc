@@ -1,0 +1,61 @@
+---
+description: CodeGraph vs context-mode routing (trc-central) — symbol lookup / flow / blast radius vs build-test-log volume vs handoff resume
+alwaysApply: false
+globs: "src/**/*.{ts,tsx,js},scripts/**/*.{js,mjs,py},config/**/*.js,**/*.py"
+---
+
+# Context-Mode + CodeGraph bridge (trc-central)
+
+## Precedence
+
+1. **CodeGraph** (`codegraph_explore`) — TS/TSX/JS/Python structure: flow, symbols, callers/callees, blast radius. **No grep+Read loop when the index exists** — call it before any grep+Read, no need to be asked.
+2. **context-mode** (`ctx_*`) — high-volume output: build/test/lint logs, batch shell, web fetch, aggregates, session memory (`context-mode.mdc`).
+3. **Handoff SoT** — `active_context.md` + `progress.md` when context thin or `preCompact` fires (`context-handoff.mdc`).
+
+## When to use which
+
+| Task | Tool |
+|------|------|
+| "How does X work?" / symbol lookup / flow / impact | `codegraph_explore` |
+| `npm test`, `heft build`, eslint output (SPFx large output) | `ctx_execute` / `ctx_batch_execute` |
+| Multi-command gather + query | `ctx_batch_execute` |
+| Docs / URL content | `ctx_fetch_and_index` + `ctx_search` |
+| After compact / new chat resume | `ctx_search(sort: "timeline")` then read `active_context.md` |
+| Read file before Edit | Native **Read** (one target file) |
+
+## CodeGraph query order
+
+1. Structural / flow / "how does X work" / callers-callees / blast-radius → `codegraph_explore`
+2. Source it already shows = Read-equivalent — don't re-read unless a staleness banner appears
+3. Staleness banner (⚠️ pending file) → `Read` that file for live content
+4. Index missing / MCP unavailable → Grep/Read fallback, remind user to `codegraph init` / connect MCP
+
+MCP: `~/.cursor/mcp.json` server `codegraph` (must show Connected). Index at `.codegraph/` (project root), excludes build/vendor; `.aspx`/`.html` unsupported.
+
+Default targets: `src/webparts/**`, `src/extensions/**` (TS/TSX/JS) · `scripts/**`, `config/**` · `*.html` templates under `src/webparts/**/templates/`.
+
+## Index scope (measured, not estimated)
+
+`.codegraph/codegraph.db` `files` table: `ts` 612 · `tsx` 41 · `js` 24 · `py` 3 · `mjs` 2.
+
+- `.scss`/`.svg`/`.json`/`.md`/assets are **not** in the index — `rg`/Grep is correct there; `codegraph_explore` returns nothing.
+- `.ts`/`.tsx`/`.js` must go through codegraph first — grep+Read loop forbidden.
+- Claude Code does **not** auto-load these `.mdc` (`alwaysApply` is Cursor-only) — SoT there is `CLAUDE.md` → *Other tool rules* table; warn hook = `.claude/hooks/rag-routing-warn.py` (observational).
+
+## ctx_* shell contract (mandatory)
+
+context-mode runs commands from a **temp cwd**, not project root, so:
+
+- Use absolute paths, or prefix `cd /Users/clickrmedia/clickrPJs/trc-central && …` — relative paths fail silently.
+- `ctx_*` returning "No such file" / `(no output)` does **not** mean the file is absent — re-check with an absolute path before concluding anything; never pick target files or design structure off this false negative.
+- `rg` (ripgrep 15.2.0, `/opt/homebrew/bin/rg`) is required — `command not found: rg` means an environment problem, not "not found"; fall back to Grep/Read.
+
+## MCP — do not intercept
+
+These MCP servers stay **native** (hooks matcher excludes `MCP:(?!ctx_)`): `codegraph`/`codegraph_explore` · Figma, browser, GitKraken, other project MCPs.
+
+## Reject
+
+- Re-verifying a fresh CodeGraph result with grep · treating vendor/`*.min.js`/backups as primary source
+- Using `ctx_execute_file` to replace `codegraph_explore` for structural flow questions
+- Project-level duplicate `.cursor/mcp.json` for context-mode (global MCP suffices)

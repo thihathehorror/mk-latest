@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/ensure-codegraph.sh"
+      },
+      {
+        "command": "npx -y context-mode hook cursor sessionstart"
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": ".cursor/hooks/rag-routing-warn-cursor.py",
+        "matcher": "Shell|Grep|Glob|Search|MCP:codegraph_explore"
+      },
+      {
+        "command": "npx -y context-mode hook cursor pretooluse",
+        "matcher": "WebFetch|mcp_web_fetch|mcp_fetch_tool|MCP:ctx_execute|MCP:ctx_execute_file|MCP:ctx_batch_execute"
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "npx -y context-mode hook cursor posttooluse"
+      }
+    ],
+    "preCompact": [
+      {
+        "command": ".cursor/hooks/precompact-handoff-warn.py"
+      }
+    ]
+  }
+}

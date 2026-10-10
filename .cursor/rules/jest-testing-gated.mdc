@@ -1,0 +1,35 @@
+---
+description: Heft/Jest unit tests (adapted from awesome jest-unit-testing) — auto on *.test.ts
+alwaysApply: false
+globs: "src/**/*.test.ts"
+---
+
+# Jest / Heft Testing (Awesome-adapted · SPFx)
+
+Runner: `npm test` → `heft test`. Match existing `describe` / `it` style in `src/webparts/trcHome/**/*.test.ts`.
+
+## TDD gate (bugfix / new logic)
+- Write the failing test first, run it, confirm it fails for the right reason — only then write the fix/implementation
+- If a test can't be run to watch it fail first (e.g. rig limitation), say so explicitly instead of skipping the gate silently
+
+## Focus
+- Business logic, pure utils, rule evaluators, services — not DOM canvas pixels
+- Mock SharePoint/PnP/Graph **before** imports when needed (`jest.mock`)
+- Valid · invalid · edge (empty, null, boundary, thrown errors)
+
+## Practices
+- Descriptive `it('should …')` names
+- Group with `describe` per module/behavior
+- `beforeEach` → `jest.clearAllMocks()` when mocks used
+- 3–5 focused cases per file unless domain needs more (follow neighbor test files)
+- Deterministic: stub dates via existing test helpers (e.g. `setSearchOverrideForTests`) — no real network
+
+## SPFx specifics
+- No full web part mount unless project already does — prefer pure function tests
+- Do not import `@microsoft/sp-*` in tests without rig mocks
+- Fluent UI components: test behavior via props/callbacks, not full theme tree
+
+## Reject
+- Snapshot-only tests for logic
+- Adding Vitest/Playwright/Cypress for unit tests without user ask
+- Tests that log tokens/PII
