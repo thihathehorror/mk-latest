@@ -1,0 +1,71 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# Build generated files
+dist
+lib
+lib-dts
+lib-commonjs
+lib-esm
+jest-output
+release
+solution
+# Generated SharePoint package output (keep sharepoint/assets/*.xml tracked)
+sharepoint/solution
+sharepoint/**/*.sppkg
+temp
+*.sppkg
+.heft
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# OSX
+.DS_Store
+
+# Staged game BGM copies (source of truth remains under src/webparts/*/assets/sound)
+SiteAssets/trc-audio/**/*.mp3
+
+# Visual Studio files
+.ntvs_analysis.dat
+.vs
+bin
+obj
+
+# Resx Generated Code
+*.resx.ts
+
+# Styles Generated Code
+*.scss.ts
+
+docs/
+
+# CodeGraph local knowledge-graph index (never commit)
+.codegraph/
+.codegraph
+codegraph.json
+
+# Cursor local config: rules, skills, hooks, and session SoT files
+AGENTS.md
+.cursor/
+.cursor/rules/
+.cursor/skills/
+.cursorrules
+.cursorrules.bak
+.cursorignore
+.cursorindexingignore
+active_context.md
+progress.md
+
+# Claude Code local config: harness, MCP servers, hooks
+CLAUDE.md
+.claude/
+.mcp.json
+
+# Local PnP Entra ClientId cache (do not commit)
+scripts/.local/
